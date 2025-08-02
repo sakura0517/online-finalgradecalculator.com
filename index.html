@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Final Grade Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .assignment-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    input[type="number"] {
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 100%;
+    }
+
+    button {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    .result {
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-align: center;
+      color: #222;
+    }
+
+    .note {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      margin-bottom: 1.5rem; /* 增加按钮和下一行之间的垂直间距 */
+    }
+
+    .assignment-wrapper {
+      margin-bottom: 1rem;
+    }
+
+    label[for="examWeight"],
+    label[for="targetGrade"] {
+      margin-top: 1rem;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Final Grade Calculator</h2>
+
+    <div id="assignments"></div>
+
+    <div class="flex-between">
+      <button onclick="addAssignment()">➕ Add Assignment</button>
+      <button onclick="removeAssignment()">➖ Remove</button>
+    </div>
+
+    <label for="examWeight">Final Exam Weight (%)</label>
+    <input type="number" id="examWeight" placeholder="e.g. 30" min="0" max="100" />
+
+    <label for="targetGrade">Target Final Grade (%)</label>
+    <input type="number" id="targetGrade" placeholder="e.g. 90" min="0" max="100" />
+
+    <button onclick="calculateFinal()">Calculate</button>
+
+    <div class="result" id="result"></div>
+    <div class="note">Add as many assignments as needed. We'll compute your final exam requirement.</div>
+  </div>
+
+  <script>
+    let assignmentCount = 0;
+
+    function addAssignment(score = '', weight = '') {
+      assignmentCount++;
+      const container = document.getElementById('assignments');
+      const div = document.createElement('div');
+      div.className = 'assignment-group assignment-wrapper';
+      div.id = `assignment-${assignmentCount}`;
+      div.innerHTML = `
+        <input type="number" placeholder="Score %" value="${score}" min="0" max="100" class="score"/>
+        <input type="number" placeholder="Weight %" value="${weight}" min="0" max="100" class="weight"/>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeAssignment() {
+      if (assignmentCount > 0) {
+        const container = document.getElementById('assignments');
+        container.removeChild(container.lastElementChild);
+        assignmentCount--;
+      }
+    }
+
+    function calculateFinal() {
+      const scores = document.querySelectorAll('.score');
+      const weights = document.querySelectorAll('.weight');
+      const examWeightInput = parseFloat(document.getElementById('examWeight').value);
+      const targetGrade = parseFloat(document.getElementById('targetGrade').value);
+      const resultDiv = document.getElementById('result');
+
+      if (scores.length === 0) {
+        resultDiv.textContent = '❗Please add at least one assignment.';
+        resultDiv.style.color = 'red';
+        return;
+      }
+
+      let totalScore = 0;
+      let totalWeight = 0;
+
+      for (let i = 0; i < scores.length; i++) {
+        const score = parseFloat(scores[i].value);
+        const weight = parseFloat(weights[i].value);
+        if (isNaN(score) || isNaN(weight)) {
+          resultDiv.textContent = '❗Please fill in all assignment scores and weights.';
+          resultDiv.style.color = 'red';
+          return;
+        }
+        totalScore += score * (weight / 100);
+        totalWeight += (weight / 100);
+      }
+
+      if (isNaN(examWeightInput) || isNaN(targetGrade)) {
+        resultDiv.textContent = '❗Please enter exam weight and target grade.';
+        resultDiv.style.color = 'red';
+        return;
+      }
+
+      const examWeight = examWeightInput / 100;
+      const assignmentWeight = totalWeight;
+      const currentGrade = totalScore / assignmentWeight;
+
+      const requiredFinalScore = (targetGrade - currentGrade * (1 - examWeight)) / examWeight;
+
+      if (requiredFinalScore > 100) {
+        resultDiv.innerHTML = `😬 You need <strong>${requiredFinalScore.toFixed(2)}%</strong> on the final. That's tough!`;
+      } else if (requiredFinalScore < 0) {
+        resultDiv.innerHTML = `🎉 You're already guaranteed your target grade!`;
+      } else {
+        resultDiv.innerHTML = `✅ You need <strong>${requiredFinalScore.toFixed(2)}%</strong> on the final exam.`;
+      }
+
+      resultDiv.style.color = '#222';
+    }
+
+    // 默认加载两个空 assignment 输入框
+    window.onload = () => {
+      addAssignment();
+      addAssignment();
+    };
+  </script>
+</body>
+</html>
