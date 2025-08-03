@@ -4,31 +4,69 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Final Grade Calculator</title>
+  <meta name="description" content="Use this Final Grade Calculator to determine what score you need on your final exam to achieve your target course grade. Enter your current assignment scores and weights, final exam weight, and target grade. Perfect for students planning their study strategies.">
+  <meta name="keywords" content="Final Grade Calculator, exam grade calculator, grade needed on final, target grade, GPA calculator, study tools, student calculator, assignment weight calculator">
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f7f9;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #eaf4ff, #ffe8fb); /* 更浅更明亮 */
       margin: 0;
       padding: 0;
       display: flex;
-      min-height: 100vh;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      color: #2c3e50;
     }
 
     .container {
-      background: #fff;
+      background: #ffffff;
       padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
       max-width: 600px;
-      width: 100%;
+      width: 90%;
+      margin-top: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 2rem 1rem 1rem;
+    }
+
+    h1 .title-main {
+      font-size: 2.4rem;
+      font-weight: bold;
+      color: #6a1b9a;
+    }
+
+    h1 .title-sub {
+      font-size: 1.1rem;
+      color: #8e44ad;
+      display: block;
+      margin-top: 0.4rem;
     }
 
     h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #333;
+      margin-top: 2.5rem;
+      font-size: 1.5rem;
+      color: #34495e;
+      border-left: 6px solid #6c5ce7;
+      padding-left: 0.5rem;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin: 1rem 0 0.5rem 1rem;
+      color: #2d3436;
+    }
+
+    p {
+      margin: 0 0 1.5rem 2rem;
+      color: #3c3c3c;
+      line-height: 1.6;
+      font-size: 0.96rem;
     }
 
     .assignment-group {
@@ -47,17 +85,17 @@
     button {
       padding: 0.6rem 1.2rem;
       font-size: 1rem;
-      background: #4CAF50;
-      color: white;
+      background: #d6b3ff; /* 浅色按钮背景 */
+      color: #4a148c; /* 深紫色文字 */
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s ease;
       margin-top: 1rem;
     }
 
     button:hover {
-      background: #45a049;
+      background: #e0c8ff;
     }
 
     .result {
@@ -65,12 +103,12 @@
       font-size: 1.1rem;
       font-weight: bold;
       text-align: center;
-      color: #222;
+      color: #2c3e50;
     }
 
     .note {
       font-size: 0.85rem;
-      color: #666;
+      color: #555;
       margin-top: 1rem;
       text-align: center;
     }
@@ -80,7 +118,7 @@
       justify-content: space-between;
       align-items: center;
       margin-top: 1rem;
-      margin-bottom: 1.5rem; /* 增加按钮和下一行之间的垂直间距 */
+      margin-bottom: 2rem;
     }
 
     .assignment-wrapper {
@@ -89,15 +127,29 @@
 
     label[for="examWeight"],
     label[for="targetGrade"] {
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       display: block;
+    }
+
+    .content {
+      max-width: 800px;
+      padding: 2rem;
+      background: #ffffff;
+      margin: 2rem 0;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Final Grade Calculator</h2>
 
+  <h1>
+    <span class="title-main">Final Grade Calculator</span>
+    <span class="title-sub">Find Out What You Need on Your Final Exam</span>
+  </h1>
+
+  <div class="container">
+    <h2>Final Grade Calculator with Weights</h2>
     <div id="assignments"></div>
 
     <div class="flex-between">
@@ -115,6 +167,30 @@
 
     <div class="result" id="result"></div>
     <div class="note">Add as many assignments as needed. We'll compute your final exam requirement.</div>
+  </div>
+
+  <div class="content">
+    <h2>Final Grade Calculator with Weights</h2>
+    <h3>How to Calculate Final Grades Using Weighted Assignments</h3>
+    <p>To calculate final grades using weighted assignments, begin by identifying the weight (percentage) of each assignment category—such as homework, quizzes, and exams. Then multiply each grade by its respective weight and sum the results. This gives you a weighted average, which more accurately reflects your performance across different assignment types. Our calculator automates this process, making it simple and error-free.</p>
+
+    <h3>Why Weighted Grades Matter in College Courses</h3>
+    <p>In college courses, not all assignments contribute equally to your final grade. Exams often carry more weight than weekly homework, and projects may count more than quizzes. Using a weighted grade calculator ensures you understand how each component affects your overall score. It helps you prioritize your efforts and make informed decisions about studying and time management.</p>
+
+    <h2>Final Grade Calculator Based on Points</h2>
+    <h3>How to Use a Points-Based Grade Calculator</h3>
+    <p>A points-based grade calculator operates on the principle of total points earned divided by total points possible. Instead of dealing with weights, this method tallies all your scores and calculates a percentage. For example, if you've earned 450 points out of 500 possible, your current grade is 90%. This approach is straightforward and ideal for classes that use a cumulative points system.</p>
+
+    <h3>Converting Points to Percentages</h3>
+    <p>To convert points to percentages, divide the points you earned on an assignment by the total points available, then multiply by 100. For example, earning 18 out of 20 points results in a 90%. Many grade calculators, including ours, support both points-based and weighted systems, helping you track progress in whichever format your instructor uses.</p>
+
+    <h2>Final Grade Calculator with Extra Credit</h2>
+    <h3>How to Factor in Extra Credit</h3>
+    <p>Extra credit can improve your final grade beyond what’s possible with standard assignments. To include it, add the extra credit points to your total earned points before calculating the average. In a weighted system, extra credit can be treated as a separate category or added to an existing one, depending on your instructor’s policy. Our calculator offers optional fields to account for extra credit accurately.</p>
+
+    <h2>Final Grade Calculator for Semester or Full Year</h2>
+    <h3>How Semesters Affect Your Final Grade Weight</h3>
+    <p>In semester-based grading, your final exam may weigh more heavily than midterm work. For example, your coursework might count for 60% of the final grade and your final exam 40%. Understanding these weights is essential to forecast your final outcome. Our calculator helps you visualize how strong exam performance can boost your final semester or year-end grade.</p>
   </div>
 
   <script>
@@ -189,10 +265,9 @@
         resultDiv.innerHTML = `✅ You need <strong>${requiredFinalScore.toFixed(2)}%</strong> on the final exam.`;
       }
 
-      resultDiv.style.color = '#222';
+      resultDiv.style.color = '#2c3e50';
     }
 
-    // 默认加载两个空 assignment 输入框
     window.onload = () => {
       addAssignment();
       addAssignment();
